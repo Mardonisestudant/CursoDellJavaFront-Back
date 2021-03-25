@@ -1,0 +1,20 @@
+TRANSCRIÇÃO DO CÓDIGO DA AULA
+
+
+package br.com.lead.springboottest;
+
+import org.springframework.boot.SpringApplication;
+
+@SpringApplication
+@controller
+public class SpringBootTestApplication {
+
+	@RequestMapping ("/")
+	@ResponseBody
+	public String bemVindoAoSpring(){
+		return "Bem-vindo ao Spring Boot.";
+	}
+	public static void main(String[] args){
+		SpringApplication.run(SpringBootTestApplication.class, args);
+	}
+}

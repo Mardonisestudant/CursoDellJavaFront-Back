@@ -1,0 +1,8 @@
+Link da IDE Eclipse: https://www.eclipse.org/downloads/packages/
+
+Link do container Apache Tomcat, versão 9: https://tomcat.apache.org/download-90.cgi
+
+Link da JDK do Java, versão 8: https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html
+
+
+

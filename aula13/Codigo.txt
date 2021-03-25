@@ -1,0 +1,134 @@
+TRANSCRIÇÃO DOS CÓDIGOS DA AULA:
+
+EXEMPLO 1
+“import { Component } from ‘@angular/core’;
+
+@Component()
+class FilmeComponent {
+}”
+
+EXEMPLO 2
+
+ import { Component } from '@angular/core';
+@Component({
+    selector: 'filme',
+    template: `
+                <h2> Catálogo de Filmes </h2>
+                <label> Filme: {{nomeFilme}} </label>
+                <br/>
+                <label> Publicação: {{anoPublicacao}}  </label>
+    `
+})
+export class FilmeComponent {
+
+
+EXEMPLO 3
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'filme',
+    template: `
+                <h2> Catálogo de Filmes </h2>
+                <label> Filme: {{nomeFilme}} </label>
+                <br/>
+                <label> Publicação: {{anoPublicacao}}  </label>
+    `
+})
+export class FilmeComponent {
+}
+
+EXEMPLO 4
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { FilmeComponent } from './filmes/filme.component';
+import { AutorComponent } from './autor/autor.component';
+@NgModule({
+  declarations: [
+    AppComponent,
+    FilmeComponent,
+    AutorComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+EXEMPLO 5
+
+<filme></filme>
+
+EXEMPLO 6
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'filme',
+    template: `
+                <h2> Catálogo de Filmes </h2>
+                <label> Filme: {{nomeFilme}} </label>
+                <br/>
+                <label> Publicação: {{anoPublicacao}}  </label>
+    `
+})
+export class FilmeComponent {
+    nomeFilme: string;
+    anoPublicacao: number;
+}
+
+
+EXEMPLO 7
+
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'filme',
+    template: `
+                <h2> Catálogo de Filmes </h2>
+                <label> Filme: {{nomeFilme}} </label>
+                <br/>
+                <label> Publicação: {{anoPublicacao}}  </label>
+    `
+})
+export class FilmeComponent {
+
+    nomeFilme: string;
+    anoPublicacao: number;
+
+    constructor() {
+        this.nomeFilme = 'Matrix';
+        this.anoPublicacao = 1999
+    }
+
+}
+
+EXEMPLO 8
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'filme',
+    template: `
+                <h2> Catálogo de Filmes </h2>
+                <label> Filme: {{nomeFilme}} </label>
+                <br/>
+                <label> Publicação: {{anoPublicacao}}  </label>
+    `
+})
+export class FilmeComponent {
+
+    nomeFilme: string;
+    anoPublicacao: number;
+
+    constructor() {
+        this.nomeFilme = 'Matrix';
+        this.anoPublicacao = 1999
+    }
+
+}
+
+
+

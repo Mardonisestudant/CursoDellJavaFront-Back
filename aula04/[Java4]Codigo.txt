@@ -1,0 +1,113 @@
+TRANSCRIÇÃO DOS CÓDIGOS
+
+EXEMPLO 1
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>JSP</title>
+</head>
+<body>
+	<% out.println("Essa é uma página JSP"); %>
+</body>
+</html>
+
+
+EXEMPLO 2
+
+@WebServlet("/filme")
+public class FilmeServlet extends HttpServlet {
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Filme coringa = new Filme("Coringa", "Drama", 2019);
+		Filme matrix = new Filme("Matrix", "Ação", 1999);
+		Filme forrestGump = new Filme("Forrest Gump", "Drama", 1994);
+		
+		ArrayList<Filme> filmes = new ArrayList<Filme>();
+		
+		filmes.add(coringa);
+		filmes.add(matrix);
+		filmes.add(forrestGump);
+
+		String genero = req.getParameter("genero");
+		
+		ArrayList<Filme> listaFiltrada = filmes.stream().filter(filme -> filme.getGenero().toUpperCase().equals(genero.toUpperCase())) .collect(Collectors.toCollection(ArrayList::new));
+	}
+}
+
+
+EXEMPLO 3
+
+@WebServlet("/filme")
+public class FilmeServlet extends HttpServlet {
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Filme coringa = new Filme("Coringa", "Drama", 2019);
+		Filme matrix = new Filme("Matrix", "Ação", 1999);
+		Filme forrestGump = new Filme("Forrest Gump", "Drama", 1994);
+		
+		ArrayList<Filme> filmes = new ArrayList<Filme>();
+		
+		filmes.add(coringa);
+		filmes.add(matrix);
+		filmes.add(forrestGump);
+
+		String genero = req.getParameter("genero");
+		
+		ArrayList<Filme> listaFiltrada = filmes.stream().filter(filme -> filme.getGenero().toUpperCase().equals(genero.toUpperCase())) .collect(Collectors.toCollection(ArrayList::new));
+		
+		req.setAttribute("listaFiltrada", listaFiltrada);
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/lista-filmes.jsp")
+		dispatcher.forward(req, resp);
+	}
+}
+
+
+EXEMPLO 4
+
+<body>
+	<h2> Lista de Filmes </h2>
+	<ol>
+		<% ArrayList<Filme> list = new ArrayList<Filme>(); 
+			list = (ArrayList<Filme>)request.getAttribute("listaFiltrada");
+			
+			for(Filme filme: list) {
+				%>
+
+EXEMPLO 5
+<%@page import="br.com.lead.modelo.Filme"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Lista de Filmes</title>
+</head>
+<body>
+	<h2> Lista de Filmes </h2>
+	<ol>
+		<% ArrayList<Filme> list = new ArrayList<Filme>(); 
+			list = (ArrayList<Filme>)request.getAttribute("listaFiltrada");
+			
+			for(Filme filme: list) {
+				%>
+			<li>
+				<% out.println("Nome: " + filme.getNome()); %> <br>
+				<%	out.println("Genero: " + filme.getGenero()); %> <br>
+				<%	out.println("Ano: " + filme.getAno()); %> <br>
+			</li>
+		<% 
+			}
+		%>
+	</ol>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+TRANSCRIÇÃO DOS CÓDIGOS DA AULA
+
+EXEMPLO 1
+
+<h1>Cadastrar Filme</h1>
+<form>
+    <label> Nome do filme: </label>
+    <br/>
+    <input type="text" name="nome">
+    <br/>
+
+    <label> Gênero: </label>
+    <br/>
+    <input type="text" name="genero">
+    <br/>
+
+    <label> Ano publicação: </label>
+    <br/>
+    <input type="text" name="ano">
+    <br/>
+
+    <label> Autor: </label>
+    <br/>
+    <input type="text" name="autorNome">
+    <br/>
+
+    <label> Data de Nascimento: </label>
+    <br/>
+    <input type="text" name="dataNascimento">
+    <br/>
+
+    <button type="submit">Salvar</button>
+</form>
+
+
+EXEMPLO 2
+
+<h1>Cadastrar Filme</h1>
+<form #f="ngForm">
+    <label> Nome do filme: </label>
+    <br/>
+    <input type="text" name="nome">
+    <br/>
+
+    <label> Gênero: </label>
+    <br/>
+    <input type="text" name="genero">
+    <br/>
+
+    <label> Ano publicação: </label>
+    <br/>
+    <input type="text" name="ano">
+    <br/>
+
+    <label> Autor: </label>
+    <br/>
+    <input type="text" name="autorNome">
+    <br/>
+
+    <label> Data de Nascimento: </label>
+    <br/>
+    <input type="text" name="dataNascimento">
+    <br/>
+
+    <button type="submit">Salvar</button>
+</form>
+
+
+EXEMPLO 3
+
+<h1>Cadastrar Filme</h1>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <label> Nome do filme: </label>
+    <br/>
+    <input type="text" name="nome">
+    <br/>
+
+    <label> Gênero: </label>
+    <br/>
+    <input type="text" name="genero">
+    <br/>
+
+    <label> Ano publicação: </label>
+    <br/>
+    <input type="text" name="ano">
+    <br/>
+
+    <label> Autor: </label>
+    <br/>
+    <input type="text" name="autorNome">
+    <br/>
+
+    <label> Data de Nascimento: </label>
+    <br/>
+    <input type="text" name="dataNascimento">
+    <br/>
+
+    <button type="submit">Salvar</button>
+</form>
+
+EXEMPLO 4
+
+<h1>Cadastrar Filme</h1>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <label> Nome do filme: </label>
+    <br/>
+    <input type="text" name="nome" ngModel>
+    <br/>
+
+    <label> Gênero: </label>
+    <br/>
+    <input type="text" name="genero" ngModel>
+    <br/>
+
+    <label> Ano publicação: </label>
+    <br/>
+    <input type="text" name="ano" ngModel>
+    <br/>
+
+    <label> Autor: </label>
+    <br/>
+    <input type="text" name="autorNome" ngModel>
+    <br/>
+
+    <label> Data de Nascimento: </label>
+    <br/>
+    <input type="text" name="dataNascimento" ngModel>
+    <br/>
+
+    <button type="submit">Salvar</button>
+</form>
+
+EXEMPLO 5
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { FilmeComponent } from './filmes/filme.component';
+import { AutorComponent } from './autor/autor.component';
+import { FilmeService } from './cadastrar-filme/filme.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CadastrarFilmeComponent } from './cadastrar-filme/cadastrar-filme.component';
+import { ConsultarFilmeComponent } from './consultar-filme/consultar-filme.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    FilmeComponent,
+    AutorComponent,
+    CadastrarFilmeComponent,
+    ConsultarFilmeComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule
+  ],
+  providers: [FilmeService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+EXEMPLO 6
+
+import { Component, OnInit } from '@angular/core';
+import { FilmeService } from './filme.service';
+import { Filme } from './filme.model';
+
+@Component({
+  selector: 'app-cadastrar-filme',
+  templateUrl: './cadastrar-filme.component.html',
+  styleUrls: ['./cadastrar-filme.component.css']
+})
+export class CadastrarFilmeComponent implements OnInit {
+
+  filmeService:FilmeService;
+
+  constructor(filmeService:FilmeService) { 
+    this.filmeService = filmeService;
+  }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(form) {
+  }
+
+}
+
+
+EXEMPLO 7
+
+import { Component, OnInit } from '@angular/core';
+import { FilmeService } from './filme.service';
+import { Filme } from './filme.model';
+
+@Component({
+  selector: 'app-cadastrar-filme',
+  templateUrl: './cadastrar-filme.component.html',
+  styleUrls: ['./cadastrar-filme.component.css']
+})
+export class CadastrarFilmeComponent implements OnInit {
+
+  filmeService:FilmeService;
+
+  constructor(filmeService:FilmeService) { 
+    this.filmeService = filmeService;
+  }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(form) {
+    let filme:Filme;
+
+    filme = {
+      id: null,
+      nome: form.value.nome,
+      genero: form.value.genero,
+      ano: form.value.ano,
+      autor: {
+        id: null,
+        nome: form.value.autorNome,
+        dataNascimento: form.value.dataNascimento
+      }
+    }
+
+    this.filmeService.cadastrarFilmes(filme).subscribe( dados => {
+      console.log("Cadastrado com sucesso");
+      console.log(dados);
+    });
+  }
+
+}
+
+EXEMPLO 8
+
+import { Component, OnInit } from '@angular/core';
+import { FilmeService } from './filme.service';
+import { Filme } from './filme.model';
+
+@Component({
+  selector: 'app-cadastrar-filme',
+  templateUrl: './cadastrar-filme.component.html',
+  styleUrls: ['./cadastrar-filme.component.css']
+})
+export class CadastrarFilmeComponent implements OnInit {
+
+  filmeService:FilmeService;
+
+  constructor(filmeService:FilmeService) { 
+    this.filmeService = filmeService;
+  }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(form) {
+    let filme:Filme;
+
+    filme = {
+      id: null,
+      nome: form.value.nome,
+      genero: form.value.genero,
+      ano: form.value.ano,
+      autor: {
+        id: null,
+        nome: form.value.autorNome,
+        dataNascimento: form.value.dataNascimento
+      }
+    }
+
+    this.filmeService.cadastrarFilmes(filme).subscribe( dados => {
+      console.log("Cadastrado com sucesso");
+      console.log(dados);
+    });
+  }
+
+}
+
+
+EXEMPLO 9
+
+<filme></filme>
+<autor></autor>
+<app-cadastrar-filme></app-cadastrar-filme>
+<consultar-filme></consultar-filme>
+
+
+EXEMPLO 10
+
+package br.com.lead.controller;
+
+import javax.persistence.EntityManager;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import br.com.lead.modelo.Filme;
+import br.com.lead.util.JPAUtil;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Controller
+public class FilmeController {
+
+	@RequestMapping(value = "/persistir-filme", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Filme persistirFilme(@RequestBody Filme filme) {
+		EntityManager entityManager = JPAUtil.getEntityManager();
+	
+	    entityManager.getTransaction().begin();
+	    entityManager.persist(filme.getAutor());
+	    entityManager.persist(filme);
+	    entityManager.getTransaction().commit();
+	    entityManager.close();       
+	    
+	    return filme;
+	}
+	
+	
+	@RequestMapping(value = "/consultar-filme", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Filme consultarFilme(@RequestParam Integer id) {
+		EntityManager entityManager = JPAUtil.getEntityManager();
+	
+	    Filme filme = entityManager.find(Filme.class, id);
+	    
+	    return filme;
+	}
+	
+}
+
+

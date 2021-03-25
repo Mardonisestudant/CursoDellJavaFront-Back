@@ -1,0 +1,101 @@
+TRANSCRIÇÃO DE CÓDIGOS
+
+EXEMPLO 1
+
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("catalogodefilmes");
+
+EntityManagerem = emf.createEntityManager();
+em.getTransaction().begin();
+
+Filme filme = em.find(Filme.class, 1);
+
+
+EXEMPLO 2
+
+package br.com.lead.util;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class JPAUtil {
+
+	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("catalogodefilmes");
+	
+	public static EntityManagergetEntityManager() {
+		return emf.createEntityManager();
+	}
+}
+
+
+EXEMPLO 3
+@Override
+protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	String nome = req.getParameter("nome");
+	Stringgenero = req.getParameter("genero");
+	Integer ano = Integer.valueOf(req.getParameter("ano"));
+
+	Filme filme = new Filme(nome, genero, ano);
+
+	EntityManagerem = JPAUtil.getEntityManager();
+
+	em.getTransaction().begin();
+	em.persist(filme);
+	em.getTransaction().commit();
+
+	em.close();
+}
+
+
+EXEMPLO 4
+@Override
+protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	EntityManagerem = JPAUtil.getEntityManager();
+	em.getTransaction().begin();
+	
+	Filme filme = em.find(Filme.class, 1);
+	
+	em.close();
+	
+	ArrayList<Filme>listaFiltrada = new ArrayList<Filme>();
+	listaFiltrada.add(filme);
+	
+	req.setAttribute("listaFiltrada", listaFiltrada);
+	
+	RequestDispatcherdispatcher = req.getRequestDispatcher("lista-filmes.jsp");
+	dispatcher.forward(req, resp);
+}
+
+
+EXEMPLO 5
+
+@Override
+protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	String nome = req.getParameter("nome");
+	Stringgenero = req.getParameter("genero");
+	Integer ano = Integer.valueOf(req.getParameter("ano"));
+
+	Filme filme = new Filme(nome, genero, ano);
+
+	EntityManagerem = JPAUtil.getEntityManager();
+
+	em.getTransaction().begin();
+	em.persist(filme);
+	em.getTransaction().commit();
+
+	em.close();
+}
+
+
+EXEMPLO 6
+
+EntityManagerem = JPAUtil.getEntityManager();
+em.getTransaction().begin();
+
+Filme filme = em.find(Filme.class, 1);
+
+em.remove(filme);
+
+em.close();
+
